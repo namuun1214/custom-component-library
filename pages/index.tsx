@@ -2,7 +2,13 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
-import { Button, FinalButton, StyledButton, ThemedButton } from "../components";
+import {
+  Button,
+  OverriddenButton,
+  StyledButton,
+  ThemedButton,
+  FinalButton,
+} from "../components";
 import { Button as MuiButton } from "@mui/material";
 
 const Home: NextPage = () => {
@@ -18,6 +24,7 @@ const Home: NextPage = () => {
         <h1 className={styles.title}>
           Welcome to <a href="https://nestsolutions.llc">Nest solutions LLC</a>
         </h1>
+        <i>Please read about this project. [link]</i>
 
         <p className={styles.description}>
           Let's see how it works.
@@ -25,19 +32,19 @@ const Home: NextPage = () => {
         </p>
         <div className={styles.grid}>
           <div className={styles.card}>
-            <h2>Without any style </h2>
+            <h3>Without any style </h3>
             <Button text="Button" />
           </div>
           <div className={styles.card}>
-            <h2>With css </h2>
+            <h3>With css </h3>
             <StyledButton text="Button" />
           </div>
           <div className={styles.card}>
-            <h2>Wrapped theme provider </h2>
+            <h3>Wrapped theme provider </h3>
             <ThemedButton text="Button" />
           </div>
           <div className={styles.card}>
-            <h2>Styled Mui button using sx </h2>
+            <h3>Styled Mui button using sx </h3>
             <MuiButton
               variant="contained"
               color="secondary"
@@ -49,7 +56,7 @@ const Home: NextPage = () => {
             </MuiButton>
           </div>
           <div className={styles.card}>
-            <h2>Override styles with class name </h2>
+            <h3>Override styles with class name </h3>
             <MuiButton
               variant="contained"
               color="secondary"
@@ -66,8 +73,31 @@ const Home: NextPage = () => {
             </MuiButton>
           </div>
           <div className={styles.card}>
-            <h2> Styled component</h2>
-            <FinalButton text="button"></FinalButton>
+            <h3> Styled component</h3>
+            <OverriddenButton text="button"></OverriddenButton>
+          </div>
+          <p className={styles.description}>
+            Final button's look
+            <code className={styles.code}>components/Button.tsx</code>
+          </p>
+          <div className={styles.grid}>
+            {["fill", "transparent", "text", "underline"].map(
+              (variant, key) => {
+                return (
+                  <div style={{ marginLeft: "50px" }}>
+                    <h3>{variant}</h3>
+                    <FinalButton text="Button" variant={variant} key={key} />
+                    <div style={{ height: "50px", width: "50px" }} />
+                    <FinalButton
+                      text="Disabled"
+                      variant={variant}
+                      disabled
+                      key={key}
+                    />
+                  </div>
+                );
+              }
+            )}
           </div>
         </div>
       </main>

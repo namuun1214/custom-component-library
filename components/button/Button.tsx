@@ -1,53 +1,72 @@
 import React from "react";
-import { useTheme, Button as MuiButton } from "@mui/material";
+import {
+  Button as MuiButton,
+  ButtonProps as MuiButtonProperties,
+} from "@mui/material";
 import { styled } from "@mui/system";
 
-const CustomButton = styled(MuiButton)(({ theme }) => ({
-  padding: theme.spacing(5),
-  backgroundColor: theme.palette.error.main,
-  color: theme.palette.grey[100],
-  "&.Mui-disabled": {
-    border: "2px solid black",
-    borderRadius: "20%",
-  },
-}));
-
-export type ButtonProperties = {
+export type ButtonProperties = Omit<MuiButtonProperties, "variant"> & {
+  variant?: "fill" | "transparent" | "text" | "underline";
   text: string;
 };
 
+const BaseButton = styled(MuiButton)<ButtonProperties>(({ theme }) => ({
+  paddingTop: theme.spacing(3),
+  paddingBottom: theme.spacing(3),
+  paddingRight: theme.spacing(10),
+  paddingLeft: theme.spacing(10),
+  borderRadius: theme.spacing(1),
+}));
+const TransparentButton = styled(BaseButton)<ButtonProperties>(({ theme }) => ({
+  backgroundColor: "transparent",
+  color: theme.palette.text.primary,
+  border: `1px solid ${theme.palette.primary.dark}`,
+  "&.Mui-disabled": {
+    color: theme.palette.grey[400],
+    backgroundColor: "transparent",
+    border: `1px solid ${theme.palette.primary.light}`,
+  },
+  "&:hover": {
+    backgroundColor: theme.palette.primary.light,
+  },
+}));
+const FilledButton = styled(BaseButton)<ButtonProperties>(({ theme }) => ({
+  backgroundColor: theme.palette.primary.dark,
+  color: theme.palette.text.secondary,
+  "&.Mui-disabled": {
+    color: theme.palette.grey[400],
+    backgroundColor: "transparent",
+    border: `1px solid ${theme.palette.primary.light}`,
+  },
+  "&:hover": {
+    backgroundColor: theme.palette.primary.main,
+  },
+}));
+const TextButton = styled(BaseButton)<ButtonProperties>(({ theme }) => ({
+  backgroundColor: "transparent",
+  "&.Mui-disabled": {
+    color: theme.palette.primary.light,
+  },
+}));
+const UnderlinedButton = styled(TextButton)<ButtonProperties>(({ theme }) => ({
+  textDecoration: "underline",
+}));
+
 // default button
-export const Button = (props: ButtonProperties) => {
-  return <button>{props.text}</button>;
-};
-
-// styledButton class is from global.css
-export const StyledButton = (props: ButtonProperties) => {
-  return <button className="styledButton">{props.text}</button>;
-};
-
-// button used theme
-export const ThemedButton = (props: ButtonProperties) => {
-  const theme = useTheme();
-  return (
-    <button
-      style={{
-        padding: theme.spacing(4),
-        backgroundColor: theme.palette.error.main,
-        color: theme.palette.grey[100],
-      }}
-    >
-      {props.text}
-    </button>
-  );
-};
-
-// final button
-export const FinalButton = (props: ButtonProperties) => {
-  const theme = useTheme();
-  return (
-    <CustomButton variant="contained" color="secondary" disabled>
-      {props.text}
-    </CustomButton>
-  );
+export const FinalButton: React.FC<ButtonProperties> = (props) => {
+  const { text, variant = "fill", ...others } = props;
+  switch (variant) {
+    case "fill":
+      return <FilledButton {...others}>{text}</FilledButton>;
+    case "transparent":
+      return <TransparentButton {...others}>{text}</TransparentButton>;
+    case "underline":
+      return <UnderlinedButton {...others}>{text}</UnderlinedButton>;
+    case "text":
+      return (
+        <TextButton variant="text" {...others}>
+          {text}
+        </TextButton>
+      );
+  }
 };

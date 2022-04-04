@@ -17,14 +17,20 @@ const theme = createTheme({
       fontSize: "2.5rem",
       fontFamily: "Roboto",
     },
+    button: {
+      fontSize: "1rem",
+      fontFamily: "Arial",
+      fontWeight: "regular",
+    },
   },
   palette: {
     background: {
       default: "#009900", //green
     },
     primary: {
-      main: "#2B37D4", //indigo
-      dark: "#3535D", //indigo
+      main: "#F178B6", //indigo
+      dark: "#EF5DA8", //indigo
+      light: "#FCDDEC",
     },
     secondary: {
       main: "#000", //pink
