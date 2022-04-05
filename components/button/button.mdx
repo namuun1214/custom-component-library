@@ -1,0 +1,163 @@
+---
+name: Button
+route: /button
+---
+
+import { Playground } from "docz";
+import { FinalButton } from "./Button.tsx";
+import {
+  useTheme,
+  Grid,
+  Typography,
+  Stack,
+  Typography as Text,
+  Box,
+} from "@mui/material";
+import { ArrowIcon } from "../icons/ArrowIcon.tsx";
+import Divider from '@mui/material/Divider';
+import Switch from '@mui/material/Switch';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
+# Button
+
+Buttons allow users to take actions, and make choices, with a single tap.
+Also communicate actions that users can take.
+
+## Usage
+
+```jsx
+import React from 'react';
+import { FinalButton } from '../components';
+
+export const ButtonUsage = () => {
+  return (
+    <FinalButton text="Button" variant="text" onclick={()=>{ alert('Clicked !')}}/>
+  );
+};
+```
+
+
+## Demos
+
+<Playground>
+  {() => {
+    return (
+      <Stack spacing={8}>
+        {["fill", "transparent", "text", "underline"].map((variant) => {
+          return (
+            <Stack spacing={4}>
+              <Text color="secondary" variant="h5">
+                {variant}
+              </Text>
+              <Stack spacing={4} direction="row">
+                <Box>
+                  <FinalButton variant={variant} text="Button" />
+                </Box>
+                <Box>
+                  <FinalButton
+                    variant={variant}
+                    text="Button"
+                    endIcon={<ArrowIcon direction="right" />}
+                  />
+                </Box>
+                <Box>
+                  <FinalButton
+                    variant={variant}
+                    text="Button"
+                    startIcon={<ArrowIcon direction="right" />}
+                  />
+                </Box>
+                <Box>
+                  <FinalButton variant={variant} text="Button" disabled />
+                </Box>
+              </Stack>
+            </Stack>
+          );
+        })}
+      </Stack>
+    );
+  }}
+</Playground>
+
+## Props
+Props of the native component are also available.
+
+<TableContainer>
+  <Table sx={{ minWidth: 650 }} aria-label="simple table">
+    <TableHead>
+      <TableRow>
+        <TableCell><Text color="secondary">Name</Text></TableCell>
+        <TableCell align="left"><Text color="secondary">Type</Text></TableCell>
+        <TableCell align="left"><Text color="secondary">Default</Text></TableCell>
+        <TableCell align="left"><Text color="secondary">Description</Text></TableCell>
+      </TableRow>
+    </TableHead>
+    <TableBody>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          <Text>text</Text>
+        </TableCell>
+        <TableCell align="left" style={{ color: '#DF3617'}}>string</TableCell>
+        <TableCell align="left"></TableCell>
+        <TableCell align="left">The content of the component.</TableCell>
+      </TableRow>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          variant
+        </TableCell>
+        <TableCell align="left" style={{ color: '#DF3617', width: '20%' }}>
+          <div variant="body4">'fill' </div>
+          <div variant="body4">| 'transparent' </div>
+          <div variant="body4">| 'text' </div>
+          <div variant="body4">| 'underline'' </div>
+        </TableCell>
+        <TableCell align="left">'fill'</TableCell>
+        <TableCell align="left">The type of the component.</TableCell>
+      </TableRow>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          disabled
+        </TableCell>
+        <TableCell align="left" style={{ color: '#DF3617' }}>
+          boolean
+        </TableCell>
+        <TableCell align="left"> false</TableCell>
+        <TableCell align="left">If true, the component is disabled.</TableCell>
+      </TableRow>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          startIcon
+        </TableCell>
+        <TableCell align="left" style={{ color: '#DF3617' }}>
+          node
+        </TableCell>
+        <TableCell align="left"></TableCell>
+        <TableCell align="left">Element placed before the children.</TableCell>
+      </TableRow>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          endIcon
+        </TableCell>
+        <TableCell align="left" style={{ color: '#DF3617' }}>
+          node
+        </TableCell>
+        <TableCell align="left"></TableCell>
+        <TableCell align="left">Element placed after the children.</TableCell>
+      </TableRow>
+      <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+        <TableCell component="th" scope="row">
+          Other mui button props
+        </TableCell>
+        <TableCell align="left" style={{ color: '#DF3617' }}>
+          Mui button types
+        </TableCell>
+      </TableRow>
+    </TableBody>
+  </Table>
+</TableContainer>
